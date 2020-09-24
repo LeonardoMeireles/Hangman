@@ -1,5 +1,5 @@
 import random
-from palavras import animais
+from palavras import animais #importa um conjunto de palavras
 
 hangman_pics = ['''
    +---+
