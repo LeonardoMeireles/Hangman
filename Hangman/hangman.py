@@ -38,16 +38,18 @@ hangman_pics = ['''
   / \  |
       ===''']
 
+#Mostra em que estágio o seu personagem está
 def show_hangman(fails):
     print(hangman_pics[fails])
 
+#escolhe uma palavra da lista "animais"
 def get_word():
-    word = random.choice(animais) #escolhe uma palavra da lista "animais"
+    word = random.choice(animais)
     return word.upper() #transforma "word" em letra maiuscula
 
 def play(word):
     word_completion = []
-    for i in range (0, len(word), 1):
+    for i in range (0, len(word), 1): #inicia word_completion com espaços livres, já que não houve progresso na palavra
         word_completion.append("_")
     guessed = False
     guessed_letters = []
@@ -59,14 +61,16 @@ def play(word):
         print (*word_completion)
         print("\n")
         guess = input("Guess a letter or the word: ").upper()
-        if len(guess) == 1 and guess.isalpha():#guess é um char valido
+         
+        #guess é um char valido
+        if len(guess) == 1 and guess.isalpha():
             if guess in guessed_letters: #jogador já escolheu essa letra
                 print("You've allready guessed that letter.")
             elif guess not in word: #guess incorreto
                 print("Sorry but that letter is not in the word.")
                 guessed_letters.append(guess)
                 fails += 1
-            else: #right guess
+            else: #acertou
                 print("Well done! That letter was in the word.")
                 guessed_letters.append(guess)
                 pos_acerto = [pos for pos, char in enumerate(word) if char == guess] #retorna a posição de todos os caracteres guess
@@ -74,16 +78,18 @@ def play(word):
                     word_completion[pos_acerto[i]] = guess #insere o char em word_completion
                 if "_" not in word_completion:
                     guessed = True
-        
-        elif len(guess) == len(word) and guess.isalpha():        #guess é uma palavra valida
+                     
+        #guess é uma palavra valida
+        elif len(guess) == len(word) and guess.isalpha():
             if guess != word:
                 print("Sorry, wrong guess.")
                 fails+=1
             else:
                 print("Congratulations you guessed the word!")
                 guessed = True
-
-        else: #guess não é valido
+               
+        #guess não é valid
+        else:
             print("Invalid guess, please try again")
     print (show_hangman(fails))
     print (word)
